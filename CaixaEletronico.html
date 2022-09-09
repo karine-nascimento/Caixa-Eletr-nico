@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Caixa Eletrônico - Karine Nascimento</title>
+
+	<script>
+		
+		var nome = (prompt("Nos informe o seu nome"));
+		alert("Olá " + nome + " é um prazer te ver por aqui!")
+		var saldo = 100.5; //Variavel Global
+		
+
+		function inicio() {
+			//ESCOPO
+			//Variavel Local
+			var escolha = parseInt(prompt('Selecione uma opção 1.) Saldo 2.) Extrato 3.) Saque 4.) Depósito 5.) Transferência 6.) Sair'));
+			
+			switch(escolha){
+				case 1: 
+				ver_saldo()
+				break;
+				case 2: 
+				ver_extrato()
+				break;
+				case 3:
+				fazer_saque()
+				break;
+				case 4: 
+				fazer_deposito()
+				break;
+				case 5: 
+				transferencia()
+				break;
+				case 6:
+				sair()
+				break;
+				default:
+					erro();
+			} 
+		}
+
+		function senhaa(){
+			var senha = parseInt(prompt('Insira a sua senha para continuar.'));
+			if(senha == 3589){
+				alert("Acesso Liberado.");
+			} else {
+				alert("Acesso Negado");
+				senhaa();
+			}
+		}
+
+		function ver_saldo() {
+			senhaa();
+			alert('Seu saldo atual é: ' + saldo);
+			inicio();
+		}
+
+		function ver_extrato(){
+			senhaa();
+			alert("Extrato dos últimos 30 dias \n - Padaria  R$: -50 \n - Mercado do Zé  R$: -23,90 \n - Pix  R$: -79,90 \n Total de Saídas: R$: -153,90 \n \n - Transferência de Gabriel  R$: +150,90 \n - Depósito  R$: +270,80 \n - Pix recebido de Myrela  R$: +50,00 \n Total de Entradas: R$: +471,70");
+			inicio();
+		}
+
+		function fazer_deposito() {
+			senhaa();
+			var deposito = parseFloat(prompt('Qual o valor para depósito?'));
+			
+			// Not a Number --> Isso é um não-número?
+			if (isNaN(deposito) || deposito === '') {
+				alert('Por favor, informe um número.');
+				fazer_deposito();
+			} else if(deposito <= 0){
+				nao_autorizada();
+			}
+			else {
+				saldo += deposito;
+				//saldo = saldo + deposito;
+				ver_saldo();
+			}
+		}
+
+		function sem_saldo() {
+			alert('Operação não autorizada. Saldo Insuficiente');
+			inicio();
+		}
+		function nao_autorizada() {
+			alert('Operação não autorizada.');
+			inicio();
+		}
+
+		function fazer_saque() {
+			senhaa();
+
+			var saque = parseFloat(prompt('Qual o valor para saque?'));
+			
+			if (isNaN(saque) || saque === '') {
+				alert('Por favor, informe um número.');
+				fazer_saque();
+			 } else if(saldo < saque){
+				sem_saldo();
+			} else if(saque <= 0){
+				nao_autorizada();
+			} 
+			else {
+				saldo -= saque;
+				//saldo = saldo - saque;
+				ver_saldo();
+			} 
+		}
+
+		function transferencia() {
+			senhaa();
+			var conta = parseInt(prompt('Por favor, informe o número da conta'));
+			if (isNaN(conta) || conta === '') {
+				alert('Por favor, informe um número.');
+				transferencia();
+			}
+			var trans = parseInt(prompt('Insira o valor a ser transferido'));
+			if(trans > saldo){
+				sem_saldo();
+			} else if(trans <= 0){
+				nao_autorizada();
+			} else {
+				saldo -= trans;
+				ver_saldo();
+			}
+		}
+
+		
+		function erro() {
+			alert('Por favor, informe um número entre 1 e 6.');
+			inicio();
+		}
+
+		function sair() {
+			var confirma = confirm('Você deseja sair?');
+			if (confirma) {
+				alert(nome + ", foi um prazer ter você por aqui!")
+				window.close();
+			} else {
+				inicio();
+			}
+		}
+
+		inicio();
+	</script>
+</head>
+
+<body>
+
+</body>
+
+</html>
